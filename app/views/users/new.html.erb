@@ -1,8 +1,36 @@
-<h2>User Registration</h2>
-<%= form_with model: @user, local: true do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %><br>
-  <%= form.label :email %>
-  <%= form.text_field :email %><br>
-  <%= form.submit "Register" %>
-<% end %>
+
+
+  <main class="form-signin w-25 m-auto">
+    <%= form_with model: @user, local: true do |form| %>
+      <h1 class="h3 mb-3 fw-normal">User Registration</h1>
+      <div class="form-floating">
+        <%= form.text_field :name, class: "form-control", placeholder: "Joe Schmoe" %>
+        <%= form.label :name, "Name" %>
+        <% if @errors && @errors.messages.has_key?(:name) %>
+          <div class="invalid-feedback">Name <%= @errors.messages[:name].first %>.</div>
+        <% end %>
+      </div>
+      <div class="form-floating">
+        <%= form.email_field :email, class: "form-control", placeholder: "name@example.com" %>
+        <%= form.label :email, "Email" %>
+        <% if @errors && @errors.messages.has_key?(:email) %>
+          <div class="invalid-feedback">Email <%= @errors.messages[:email].first %>.</div>
+        <% end %>
+      </div>
+      <div class="form-floating">
+        <%= form.password_field :password, class: "form-control", placeholder: "Password" %>
+        <%= form.label :password, "Password" %>
+        <% if @errors && @errors.messages.has_key?(:password) %>
+          <div class="invalid-feedback">Password <%= @errors.messages[:password].first %>.</div>
+        <% end %>
+      </div>
+      <div class="form-floating">
+        <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password" %>
+        <%= form.label :password_confirmation, "Confirm Password" %>
+        <% if @errors && @errors.messages.has_key?(:password_confirmation) %>
+          <div class="invalid-feedback">Passwords don't match.</div>
+        <% end %>
+      </div>
+      <%= form.submit "Register", class: "w-100 btn btn-lg btn-primary" %>
+    <% end %>
+  </main>

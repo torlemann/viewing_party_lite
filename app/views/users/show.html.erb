@@ -1,51 +1,62 @@
 <h2><%= @user.name %>'s Dashboard</h2>
 <%= button_to "Discover Movies", user_discover_path(@user.id), method: :get %>
-<h3>Viewing Party Invitations:</h3>
+<h3>Viewing Party Invitations:</h3><br>
 
-<div class="vp_container">
-  <% @user.viewing_parties.each do |vp| %>
-    <div id="vp_<%= vp.id %>">
-      <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>"><br>
-      <h4><%= link_to vp.movie.title, user_movie_path( @user.id, vp.movie_id ) %></h4>
-      <br>
-      <%= vp.date.strftime("%B %-d, %Y") %><br>
-      <%= vp.start_time.strftime("%l:%M %P") %><br><br>
-      <strong>Host:</strong> <%= vp.host.name %><br>
-      <strong>Invitees:</strong><br>
-      <ul>
-        <% vp.users.each do |invitee| %>
-          <% if invitee == @user %>
-            <strong><li><%= invitee.name %></li></strong>
-          <% else %>
-            <li><%= invitee.name %></li>
+
+<div class="container">
+  <div class="grid text-start">
+    <% @user.viewing_parties.each do |vp| %>
+      <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
+        <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
+        <div class="card-body">
+          <%= link_to user_movie_path( @user.id, vp.movie_id ), class: "stretched-link text-decoration-none" do %>
+            <h5 class="card-title"><%= vp.movie.title %></h5>
           <% end %>
-        <% end %>
-      </ul>    
-    </div>
-  <% end %>
-</div>
-<h3>Your Hosted Viewing Parties:</h3>
-<div class="vp_container">
-  <% @user.hosted_viewing_parties.each do |vp| %>
-    <div id="vp_<%= vp.id %>">
-      <% if vp.movie.image_path %>
-        <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>"><br>
-      <% else %>
-        <p>No Image</p>
-      <% end %>
-      <h4><%= link_to vp.movie.title, user_movie_path( @user.id, vp.movie_id ) %></h4>
-      <br>
-      <%= vp.date.strftime("%B %-d, %Y") %><br>
-      <%= vp.start_time.strftime("%l:%M %P") %><br><br>
-      <strong>Host:</strong> You!<br>
-      <strong>Invitees:</strong><br>
-      <% if vp.users %>
-        <ul>
-          <% vp.users.each do |invitee| %>
-            <li><%= invitee.name %></li>
+          <p class="card-text">
+            <%= vp.date.strftime("%B %-d, %Y") %><br>
+            <%= vp.start_time.strftime("%l:%M %P") %><br><br>
+            <strong>Host:</strong> <%= vp.host.name %><br>
+            <strong>Invitees:</strong><br>
+            <ul>
+              <% vp.users.each do |invitee| %>
+                <% if invitee == @user %>
+                  <strong><li><%= invitee.name %></li></strong>
+                <% else %>
+                  <li><%= invitee.name %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </p> 
+        </div>   
+      </div>
+    <% end %>
+  </div>
+  <h3>Hosted Viewing Parties:</h3><br>
+  <div class="grid text-start">
+    <% @user.hosted_viewing_parties.each do |vp| %>
+      <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
+        <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
+        <div class="card-body">
+          <%= link_to user_movie_path( @user.id, vp.movie_id ), class: "stretched-link text-decoration-none" do %>
+            <h5 class="card-title"><%= vp.movie.title %></h5>
           <% end %>
-        </ul> 
-      <% end %>   
-    </div>
-  <% end %>
+          <p class="card-text">
+            <%= vp.date.strftime("%B %-d, %Y") %><br>
+            <%= vp.start_time.strftime("%l:%M %P") %><br><br>
+            <strong>Host:</strong> You!<br>
+            <strong>Invitees:</strong><br>
+            <ul>
+              <% vp.users.each do |invitee| %>
+                <% if invitee == @user %>
+                  <strong><li><%= invitee.name %></li></strong>
+                <% else %>
+                  <li><%= invitee.name %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </p> 
+        </div>   
+      </div>
+    <% end %>
+  </div>
 </div>

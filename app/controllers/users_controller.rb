@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    binding.pry
   end
 
   def new
@@ -13,15 +14,31 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to user_path(@user.id)
     else
-      flash[:alerts] = @user.errors.full_messages
+      @errors = @user.errors
       render :new
+    end
+  end
+
+  def login_form
+    @email = nil
+  end
+
+  def login
+    @email = params[:email]
+    user = User.find_by(email: @email)
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to user_path(user)
+    else
+      @error = true
+      render :login_form
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
 end

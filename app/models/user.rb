@@ -7,6 +7,8 @@ class User < ApplicationRecord
     validates_uniqueness_of :email
     validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP, message: "is not formatted correctly"
 
+    has_secure_password
+
     def self.all_except(user_id)
         where.not(id: user_id)
     end
