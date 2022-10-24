@@ -16,6 +16,7 @@ RSpec.describe "New User Page", type: :feature do
     expect(benji.name).to eq("Benji")
     expect(current_path).to eq(user_path(benji.id))
     expect(benji).to_not have_attribute(:password)
+    expect(benji).to have_attribute(:password_digest)
     expect(benji.password_digest).to_not eq('password')
   end
 
