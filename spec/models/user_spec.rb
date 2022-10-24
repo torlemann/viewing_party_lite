@@ -7,9 +7,9 @@ RSpec.describe User, type: :model do
         it { should have_many(:viewing_parties).through(:viewing_party_invitees) }
 
         it 'has multiple relationships with viewing party via host and invitees', :vcr do
-            user_1 = User.create!(name: "Tom", email: "tmusselman@gmail.com")
-            user_2 = User.create(name: "Bob", email: "bob@gmail.com")
-            user_3 = User.create(name: "Marge", email: "marge@hotmail.com")
+            user_1 = User.create!(name: "Tom", email: "tmusselman@gmail.com", password: "password")
+            user_2 = User.create(name: "Bob", email: "bob@gmail.com", password: "password")
+            user_3 = User.create(name: "Marge", email: "marge@hotmail.com", password: "password")
 
             viewing_party_1 = ViewingParty.create!(movie_id: 238, duration: 600, date: "2022-10-10", start_time: "16:00:00", host_id: user_1.id)
             viewing_party_2 = ViewingParty.create!(movie_id: 238, duration: 600, date: "2022-10-10", start_time: "16:00:00", host_id: user_2.id)
@@ -24,7 +24,9 @@ RSpec.describe User, type: :model do
 
     describe 'validations' do
         it { should validate_presence_of(:name) }
+        it { should validate_presence_of(:password_digest) }
         it { should validate_presence_of(:email) }
         it { should validate_uniqueness_of(:email) }
+        it { should have_secure_password }
     end
 end

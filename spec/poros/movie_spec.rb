@@ -21,7 +21,7 @@ RSpec.describe Movie do
 
     expect(the_room.id).to eq(17473)
     expect(the_room.title).to eq("The Room")
-    expect(the_room.vote_average).to eq(4.08)
+    expect(the_room.vote_average).to eq(4.075)
     expect(the_room.genres).to eq(["Drama", "Romance"])
     expect(the_room.summary).to eq("Johnny is a successful banker with great respect for and dedication to the people in his life, especially his future wife Lisa. The happy-go-lucky guy sees his world being torn apart when his friends begin to betray him one-by-one.")
     expect(the_room.cast).to be_an Array
