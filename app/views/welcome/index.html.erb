@@ -1,5 +1,25 @@
-
-<h1>Welcome to Viewing Party!</h1>
-<% if !@user %>
-  <h3>Login or register to get started.</h3>
-<% end %>
+<div class="container">
+  <div class="grid">
+    <div class="g-col-12 border rounded-3 p-4">
+      <h1>Welcome to Viewing Party!</h1>
+      <% if !@user %>
+        <h3>Login or register to get started.</h3>
+      <% end %>
+      <div class="text-start">
+        <h4>About</h4>
+        <p>This is a educational project that I made for the Turing School of Software and Design. It was created with Ruby on Rails. It explores consuming a public API (The Movie DB) using OOP, managing users and authentication/authorization, managing a PostgreSQL database with ActiveRecord, and other key concepts. More infomation can be found on the GitHub Repo README linked at the bottom of the page.</p>
+        <p>If you'd like to explore the functionality you can register as a new user or user one of the following test accounts: </p>
+        <ul>
+          <li>Email: bb@test.com, pw: test123</li>
+          <li>Email: jj@test.com, pw: test123</li>
+          <li>Email: ss@test.com, pw: test123</li>
+          <li>Email: rr@test.com, pw: test123</li>
+        </ul>
+        <h4>Features</h4>
+        <p>Users can log in and host movie "Viewing Parties" and invite other users to attend.
+        <br>Users can search for movies by name or rating, and can view information about the movies provided by The Movie DB.<br>
+        From the movie information page a user can click a button to create a viewing party.</p>
+      </div>
+    </div>
+  </div>
+</div>
