@@ -1,11 +1,11 @@
-<h2><%= @user.name %>'s Dashboard</h2>
+<h2><%= current_user.name %>'s Dashboard</h2>
 <br>
-<%= button_to "Discover Movies", user_discover_path, class: "btn btn-primary btn-lg", method: :get %>
+<%= button_to "Discover Movies", discover_path, class: "btn btn-primary btn-lg", method: :get %>
 <br>
 <div class="container text-start">
 <h3>Viewing Party Invitations:</h3><br>
   <div class="grid text-start">
-    <% if @user.viewing_parties.empty? %>
+    <% if current_user.viewing_parties.empty? %>
       <div class="g-col-3 card">
         <img id="no_movie_img" class="card-img-top p-3" src=<%= asset_path('no-movie.png') %>>
         <div class="card-body">
@@ -16,11 +16,11 @@
         </div> 
       </div>
     <% end %>
-    <% @user.viewing_parties.each do |vp| %>
+    <% current_user.viewing_parties.each do |vp| %>
       <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
         <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
         <div class="card-body">
-          <%= link_to user_movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
+          <%= link_to movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
             <h5 class="card-title"><%= vp.movie.title %></h5>
           <% end %>
           <p class="card-text">
@@ -30,7 +30,7 @@
             <strong>Invitees:</strong><br>
             <ul>
               <% vp.users.each do |invitee| %>
-                <% if invitee == @user %>
+                <% if invitee == current_user %>
                   <strong><li><%= invitee.name %></li></strong>
                 <% else %>
                   <li><%= invitee.name %></li>
@@ -45,7 +45,7 @@
   <br>
   <h3>Hosted Viewing Parties:</h3><br>
   <div class="grid text-start">
-    <% if @user.hosted_viewing_parties.empty? %>
+    <% if current_user.hosted_viewing_parties.empty? %>
       <div class="g-col-3 card">
         <img id="no_movie_img" class="card-img-top p-3" src=<%= asset_path('no-movie.png') %>>
         <div class="card-body">
@@ -56,11 +56,11 @@
         </div> 
       </div>
     <% end %>
-    <% @user.hosted_viewing_parties.each do |vp| %>
+    <% current_user.hosted_viewing_parties.each do |vp| %>
       <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
         <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
         <div class="card-body">
-          <%= link_to user_movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
+          <%= link_to movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
             <h5 class="card-title"><%= vp.movie.title %></h5>
           <% end %>
           <p class="card-text">
@@ -70,7 +70,7 @@
             <strong>Invitees:</strong><br>
             <ul>
               <% vp.users.each do |invitee| %>
-                <% if invitee == @user %>
+                <% if invitee == current_user %>
                   <strong><li><%= invitee.name %></li></strong>
                 <% else %>
                   <li><%= invitee.name %></li>

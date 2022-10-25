@@ -1,7 +1,7 @@
 <div class="container">
   <div class="grid">
     <div class="g-col-6 g-start-4">
-      <%= form_with model: @viewing_party, url: user_movie_viewing_parties_path(@viewing_party.movie_id), local: true do |form| %>
+      <%= form_with model: @viewing_party, url: movie_viewing_parties_path(@viewing_party.movie_id), local: true do |form| %>
         <div class="grid">
           <div class="g-col-12">
             <h1 class="h1 fw-bold">Create a Viewing Party</h1>

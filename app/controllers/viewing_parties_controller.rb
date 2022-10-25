@@ -1,15 +1,15 @@
-class User::ViewingPartiesController < ApplicationController
+class ViewingPartiesController < ApplicationController
 
-  before_action :set_users
+  before_action :require_user, :set_other_users
 
   def new
-    @viewing_party = ViewingParty.new(host_id: @user.id, movie_id: params[:movie_id])
+    @viewing_party = ViewingParty.new(host_id: current_user.id, movie_id: params[:movie_id])
   end
 
   def create   
     @viewing_party = ViewingParty.new(vp_params)
     if @viewing_party.save
-      redirect_to user_dashboard_path
+      redirect_to dashboard_path
     else
       @errors = @viewing_party.errors
       render :new
@@ -29,9 +29,8 @@ class User::ViewingPartiesController < ApplicationController
     )
   end
 
-  def set_users
-    @user = current_user
-    @other_users = User.all_except(@user.id)
+  def set_other_users
+    @other_users = User.all_except(current_user.id)
   end
 
 end

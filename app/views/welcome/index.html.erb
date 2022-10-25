@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="g-col-12 border rounded-3 p-4">
       <h1>Welcome to Viewing Party!</h1>
-      <% if !@user %>
+      <% if !current_user %>
         <h3>Login or register to get started.</h3>
       <% end %>
       <div class="text-start">

@@ -14,30 +14,29 @@
     <div class="container">
       <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <img class="bi me-2" height="32" src=<%= asset_path("no-movie.png") %>></img>
+          <img class="bi me-2" height="32" src=<%= asset_path("no-movie.png") %>>
           <span class="fs-3">Viewing Party Lite</span>
         </a>
         <% if flash[:notice] %>
           <div style="font-size: 0.8rem" class="d-flex align-items-center me-3 text-muted p-2 border rounded-3"><%= flash[:notice] %></div>
         <% end %>
-        <% if !@user %>
+        <% if !current_user %>
           <ul class="nav nav-pills">
-            <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Discover", discover_path, class: current_page?(discover_path) ? "nav-link active" : "nav-link" %></li>
             <li class="nav-item"><%= link_to "Login", login_path, class: current_page?(login_path) ? "nav-link active" : "nav-link" %></li>
             <li class="nav-item"><%= link_to "Register", register_path, class: current_page?(register_path) ? "nav-link active" : "nav-link" %></li>
           </ul>
         <% else %>
           <ul class="nav nav-pills">
-            <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
-            <li class="nav-item"><%= link_to "Dashboard", user_dashboard_path, class: current_page?(user_dashboard_path) ? "nav-link active" : "nav-link" %></li>
-            <li class="nav-item"><%= link_to "Discover", user_discover_path, class: current_page?(user_discover_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Dashboard", dashboard_path, class: current_page?(dashboard_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Discover", discover_path, class: current_page?(discover_path) ? "nav-link active" : "nav-link" %></li>
             <div class="dropdown text-start">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle ms-3" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src=<%= asset_path('user.jpeg') %> alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small" style="">
-                <li class="ps-3 pt-3"><strong><%= @user.name %></strong></li>
-                <li class="ps-3 pb-3"><%= @user.email %></li>
+                <li class="ps-3 pt-3"><strong><%= current_user.name %></strong></li>
+                <li class="ps-3 pb-3"><%= current_user.email %></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><%= link_to "Logout", logout_path, class: "dropdown-item", method: :post %></li>
               </ul>
