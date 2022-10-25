@@ -10,8 +10,8 @@ class MoviesService
         JSON.parse(response.body, symbolize_names: true)
     end
     
-    def self.top_20
-        response = conn.get("/3/movie/top_rated")
+    def self.top_movies(page)
+        response = conn.get("/3/movie/top_rated", {page: page})
         JSON.parse(response.body, symbolize_names: true) 
     end
     

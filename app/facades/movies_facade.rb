@@ -8,9 +8,9 @@ class MoviesFacade
     Movie.new(movie_details, movie_images, movie_credits, movie_reviews)
   end
 
-  def self.get_top_20_movies
-    top_20_data = MoviesService.top_20
-    top_20_data[:results].map do |result|
+  def self.get_top_movies(page)
+    top_movies_data = MoviesService.top_movies(page)
+    top_movies_data[:results].map do |result|
       MovieSearchResult.new(result)
     end
   end
