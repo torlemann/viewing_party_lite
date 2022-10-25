@@ -17,6 +17,7 @@ class MoviesFacade
 
   def self.get_search_results_movies(search_query)
     search_results = MoviesService.search_results(search_query)
+    search_results = {results: []} if search_results.has_key?(:errors)
     search_results[:results][0..39].map do |result|
       MovieSearchResult.new(result)
     end
