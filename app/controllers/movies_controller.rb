@@ -5,7 +5,8 @@ class MoviesController < ApplicationController
 
   def index
     if params[:search] == "top rated"
-      @movies = MoviesFacade.get_top_20_movies
+      @page = params[:page] || "1"
+      @movies = MoviesFacade.get_top_movies(@page.to_i)
     else
       @movies = MoviesFacade.get_search_results_movies(params[:search])
     end

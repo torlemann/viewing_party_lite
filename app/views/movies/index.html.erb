@@ -16,5 +16,16 @@
                 </li>
             <% end %>
         </ol>
+        <% if params[:search] == "top rated" %>
+            <div class="text-center mt-4 fs-5">
+                <% if @page != "1" %>
+                    < <%= link_to "Previous", movies_path(search: "top rated", page: @page.to_i - 1) %> | <%= link_to "1", movies_path(search: "top rated", page: 1) %> <%= @page.to_i > 7 ? " | ... |" : "|" %>
+                <% end %>
+                <% ([@page.to_i - 5, 2].max..@page.to_i - 1).to_a.each do |num| %>
+                    <%= link_to num, movies_path(search: "top rated", page: num) %> |
+                <% end %>
+                Page <%= @page %> | <%= link_to "Next", movies_path(search: "top rated", page: @page.to_i + 1) %> >
+            </div>
+        <% end %>
     </div>
 </div>
