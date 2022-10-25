@@ -1,18 +1,17 @@
 class UsersController < ApplicationController
 
-  before_action :get_user, only: [:show]
-
   def new
-    @user = User.new
+    @new_user = User.new
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      session[:user_id] = @user.id
+    @new_user = User.new(user_params)
+    if @new_user.save
+      session[:user_id] = @new_user.id
+      flash[:notice] = "Welcome #{@new_user.name}!"
       redirect_to user_dashboard_path
     else
-      @errors = @user.errors
+      @errors = @new_user.errors
       render :new
     end
   end
@@ -25,6 +24,7 @@ class UsersController < ApplicationController
     @email = params[:email]
     user = User.find_by(email: @email)
     if user && user.authenticate(params[:password])
+      flash[:notice] = "Welcome #{user.name}!"
       session[:user_id] = user.id
       redirect_to user_dashboard_path
     else
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def logout
     session.clear
+    flash[:notice] = "You have been successfully logged out."
     redirect_to root_path
   end
 

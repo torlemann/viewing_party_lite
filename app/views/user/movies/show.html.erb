@@ -1,37 +1,49 @@
-<h2><%= @movie.title %></h2>
-<% if @movie.image_path %>
-  <img style="width:300px" src="<%= @movie.image_path %>">
-<% end %>
-<%= button_to "Discover Page", user_discover_path, method: :get %>
-<%= button_to "Create Viewing Party for #{@movie.title}", new_user_movie_viewing_party_path(@movie.id), method: :get %>
-<br>
-<div id="movie_info_1">
-  <div id="rating">Vote Average: <%= @movie.vote_average.round(1) %></div>
-  <div id="runtime">Runtime: <%= runtime_view_helper(@movie.runtime) %></div>
-  <div id="genres">Genre(s): <%= @movie.genres.join(", ") %></div>
-</div>
-<hr>
-<div id="summary">
-  <h4>Summary</h4>
-  <p><%= @movie.summary %></p>
-</div>
-<div id="cast">
-  <h4>Cast</h4>
-  <ul>
-    <% @movie.cast.each do |cast_member| %>
-      <li>
-        <%= "#{cast_member[:name]} as #{cast_member[:character]}" %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-<hr>
-<div id="reviews">
-  <h4><%= @movie.reviews.length %> Reviews</h4>
-  <% @movie.reviews.each do |review| %>
-    <div class="review">
-      <strong>Author: <%= review[:author] %></strong>
-      <p><%= review[:content] %></p>
+<div class="container text-start">
+  <div class="grid">
+    <div class="g-col-12">
+      <h1><%= @movie.title %></h1>
     </div>
-  <% end %>
+    <div class="g-col-4">
+      <%= button_to "Create Viewing Party!", new_user_movie_viewing_party_path(@movie.id), class: "w-100 btn btn-primary btn-lg mb-3", method: :get %>
+      
+      <div class="card">
+        <img src="<%= @movie.image_path %>" class="card-img-top">
+        <div class="card-body">
+          <p class="card-text"><strong>Average Rating:</strong> <%= @movie.vote_average.round(1) %></p>
+          <p class="card-text"><strong>Runtime: </strong><%= runtime_view_helper(@movie.runtime) %></p>
+          <p class="card-text"><strong>Genre(s):</strong> <%= @movie.genres.join(", ") %></p>
+        </div>
+      </div>
+    </div>
+    <div class="g-col-8">
+      <h4>Summary</h4>
+      <p><%= @movie.summary %></p>
+      <hr>
+      <h4>Cast</h4>
+      <table class="table">
+        <thead>
+          <th scope="col">Actor</th>
+          <th scope="col">Character</th>
+        </thead>
+        <tbody>
+          <% @movie.cast.each do |cast_member| %>
+            <tr>
+              <td><%= cast_member[:name] %></td>
+              <td><%= cast_member[:character] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="g-col-12">
+      <h4 class="fw-bold"><%= @movie.reviews.length %> Reviews</h4>
+      <hr>
+      <% @movie.reviews.each do |review| %>
+        <div class="review">
+          <strong>Author: <%= review[:author] %></strong>
+          <p><%= review[:content] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

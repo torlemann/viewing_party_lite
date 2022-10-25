@@ -11,8 +11,7 @@ class User::ViewingPartiesController < ApplicationController
     if @viewing_party.save
       redirect_to user_dashboard_path
     else
-      binding.pry
-      flash[:alerts] = @viewing_party.errors.full_messages
+      @errors = @viewing_party.errors
       render :new
     end
   end
