@@ -1,0 +1,17 @@
+<div class="container">
+<h1 class="my-3">Discover Movies</h1>
+
+<%= button_to 'Find Top Rated Movies', user_movies_path, class: "btn btn-primary btn-lg my-3", method: :get, params: {search: "top rated"}, local: true %>
+
+<h2 class="my-3">OR</h2>
+
+<main class="form-signin w-50 my-4 mx-auto">
+<%= form_with url: user_movies_path, method: :get, local: true do |f| %>
+    <div class="form-floating mt-3 mb-2">
+        <%= f.text_field :search, class: "form-control", placeholder: "Search by Movie Title"%>
+        <%= f.label :search, 'Search by Movie Title' %>
+    </div>
+    <%= f.submit "Find Movies", class: "w-100 btn btn-lg btn-primary" %>
+<% end %>
+</main>
+</div>

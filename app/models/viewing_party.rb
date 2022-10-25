@@ -13,7 +13,7 @@ class ViewingParty < ApplicationRecord
     private
 
     def duration_longer_than_runtime
-        if movie.runtime > duration
+        if duration && movie.runtime > duration
             errors.add(:duration, "must be greater than movie runtime")
         end
     end

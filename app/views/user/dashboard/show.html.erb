@@ -1,0 +1,85 @@
+<h2><%= @user.name %>'s Dashboard</h2>
+<br>
+<%= button_to "Discover Movies", user_discover_path, class: "btn btn-primary btn-lg", method: :get %>
+<br>
+<div class="container text-start">
+<h3>Viewing Party Invitations:</h3><br>
+  <div class="grid text-start">
+    <% if @user.viewing_parties.empty? %>
+      <div class="g-col-3 card">
+        <img id="no_movie_img" class="card-img-top p-3" src=<%= asset_path('no-movie.png') %>>
+        <div class="card-body">
+          <h5 class="card-title">You currently have no invitations.</h5>
+          <p class="card-text">
+            Once a friend invites you to a viewing party it will show up here.
+          </p> 
+        </div> 
+      </div>
+    <% end %>
+    <% @user.viewing_parties.each do |vp| %>
+      <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
+        <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
+        <div class="card-body">
+          <%= link_to user_movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
+            <h5 class="card-title"><%= vp.movie.title %></h5>
+          <% end %>
+          <p class="card-text">
+            <%= vp.date.strftime("%B %-d, %Y") %><br>
+            <%= vp.start_time.strftime("%l:%M %P") %><br><br>
+            <strong>Host:</strong> <%= vp.host.name %><br>
+            <strong>Invitees:</strong><br>
+            <ul>
+              <% vp.users.each do |invitee| %>
+                <% if invitee == @user %>
+                  <strong><li><%= invitee.name %></li></strong>
+                <% else %>
+                  <li><%= invitee.name %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </p> 
+        </div>   
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <h3>Hosted Viewing Parties:</h3><br>
+  <div class="grid text-start">
+    <% if @user.hosted_viewing_parties.empty? %>
+      <div class="g-col-3 card">
+        <img id="no_movie_img" class="card-img-top p-3" src=<%= asset_path('no-movie.png') %>>
+        <div class="card-body">
+          <h5 class="card-title">You currently are not hosting any viewing parties.</h5>
+          <p class="card-text">
+            Click "Discover Movies" to find a movie and create a viewing party!
+          </p> 
+        </div> 
+      </div>
+    <% end %>
+    <% @user.hosted_viewing_parties.each do |vp| %>
+      <div class="g-col-3 card" id="vp2_<%= vp.movie_id %>">
+        <img id="movie_img_<%= vp.movie_id %>" src="<%= vp.movie.image_path %>" class="card-img-top"><br>
+        <div class="card-body">
+          <%= link_to user_movie_path(vp.movie_id), class: "stretched-link text-decoration-none" do %>
+            <h5 class="card-title"><%= vp.movie.title %></h5>
+          <% end %>
+          <p class="card-text">
+            <%= vp.date.strftime("%B %-d, %Y") %><br>
+            <%= vp.start_time.strftime("%l:%M %P") %><br><br>
+            <strong>Host:</strong> You!<br>
+            <strong>Invitees:</strong><br>
+            <ul>
+              <% vp.users.each do |invitee| %>
+                <% if invitee == @user %>
+                  <strong><li><%= invitee.name %></li></strong>
+                <% else %>
+                  <li><%= invitee.name %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </p> 
+        </div>   
+      </div>
+    <% end %>
+  </div>
+</div>

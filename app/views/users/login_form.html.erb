@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="grid">
+    <div class="g-col-6 g-start-4">
+      <%= form_with url: login_path, method: :post, local: true do |form| %>
+        <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <div class="form-floating my-2">
+          <%= form.email_field :email, class: @error ? "form-control is-invalid" : "form-control", placeholder: "name@example.com", value: @email %>
+          <%= form.label :email, "Email"%>
+        </div>
+        <div class="form-floating my-2">
+          <%= form.password_field :password, class: @error ? "form-control is-invalid" : "form-control", placeholder: "Password" %>
+          <%= form.label :password, "Password" %>
+          <% if @error %>
+            <div class="invalid-feedback">Email or Password is invalid.</div>
+          <% end %>
+        </div>
+        <div class="checkbox my-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <%= form.submit "Login", class: "w-100 btn btn-lg btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

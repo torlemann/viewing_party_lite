@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="grid">
+    <div class="g-col-6 g-start-4">
+      <%= form_with model: @viewing_party, url: user_movie_viewing_parties_path(@viewing_party.movie_id), local: true do |form| %>
+        <div class="grid">
+          <div class="g-col-12">
+            <h1 class="h1 fw-bold">Create a Viewing Party</h1>
+          </div>
+          <div class="g-col-12">
+            <h3 class="h3 fw-bold"><%= @viewing_party.movie.title %></h3>
+          </div>
+          <div class="g-col-6 form-floating">
+            <%= form.text_field :duration, class: "form-control", placeholder: "0"  %>
+            <%= form.label :duration, "Party Duration (mins)" %>
+            <% if @errors && @errors.messages.has_key?(:duration) %>
+              <div class="invalid-feedback">Duration <%= @errors.messages[:duration].first %>.</div>
+            <% end %>
+          </div>
+          <div class="g-col-6 d-flex align-items-center">
+            <strong>Movie Runtime: <%= @viewing_party.movie.runtime %> mins</strong>
+          </div>
+          <div class="g-col-6 form-floating">
+            <%= form.date_field :date, class: "form-control", placeholder: "Date" %>
+            <%= form.label :date, "Party Date" %>
+            <% if @errors && @errors.messages.has_key?(:date) %>
+              <div class="invalid-feedback">Date <%= @errors.messages[:date].first %>.</div>
+            <% end %>
+          </div>
+          <div class="g-col-6 form-floating">
+            <%= form.time_field :start_time, class: "form-control", placeholder: "Time" %>
+            <%= form.label :start_time, "Party Start Time" %>
+            <% if @errors && @errors.messages.has_key?(:start_time) %>
+              <div class="invalid-feedback">Start Time <%= @errors.messages[:start_time].first %>.</div>
+            <% end %>
+          </div>
+          <div class="g-col-6 g-start-4 text-start">
+            <strong>Invite Your Friends: </strong><br>
+            <%= form.collection_check_boxes :user_ids, @other_users, :id, :name do |box| %>
+              <%= box.label { box.check_box + " " + box.text } %><br>
+            <% end %>
+            <%= form.hidden_field :movie_id %>
+            <%= form.hidden_field :host_id %>
+          </div>
+          <div class="g-col-10 g-start-2">
+            <%= form.submit "Create Party", class: "w-100 btn btn-lg btn-primary mt-3" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

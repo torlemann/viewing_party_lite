@@ -9,14 +9,57 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
-    <h1>Viewing Party Lite</h1>
-    <%= link_to "Home", root_path %>
-    <% if flash[:alerts] %>
-      <% flash[:alerts].each do |message| %>
-        <h3><b><%= message %></b></h3>
-      <% end %>
-    <% end %>
+  <body class="text-center">
+
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <img class="bi me-2" height="32" src=<%= asset_path("no-movie.png") %>></img>
+          <span class="fs-3">Viewing Party Lite</span>
+        </a>
+        <% if flash[:notice] %>
+          <div style="font-size: 0.8rem" class="d-flex align-items-center me-3 text-muted p-2 border rounded-3"><%= flash[:notice] %></div>
+        <% end %>
+        <% if !@user %>
+          <ul class="nav nav-pills">
+            <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Login", login_path, class: current_page?(login_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Register", register_path, class: current_page?(register_path) ? "nav-link active" : "nav-link" %></li>
+          </ul>
+        <% else %>
+          <ul class="nav nav-pills">
+            <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Dashboard", user_dashboard_path, class: current_page?(user_dashboard_path) ? "nav-link active" : "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Discover", user_discover_path, class: current_page?(user_discover_path) ? "nav-link active" : "nav-link" %></li>
+            <div class="dropdown text-start">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle ms-3" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src=<%= asset_path('user.jpeg') %> alt="mdo" width="32" height="32" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu text-small" style="">
+                <li class="ps-3 pt-3"><strong><%= @user.name %></strong></li>
+                <li class="ps-3 pb-3"><%= @user.email %></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><%= link_to "Logout", logout_path, class: "dropdown-item", method: :post %></li>
+              </ul>
+            </div>
+          </ul>
+        <% end %>
+      </header>
+    </div>
+
+  
+
     <%= yield %>
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="https://github.com/musselmanth/viewing_party_lite" class="nav-link px-2 text-muted">GitHub Repo</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">Created by Tom Musselman</p>
+      </footer>
+    </div>
   </body>
 </html>
