@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @new_user.save
       session[:user_id] = @new_user.id
       flash[:notice] = "Welcome #{@new_user.name}!"
-      redirect_to session.delete(:return_to) || dashboard_path
+      redirect_to cookies.delete(:return_to) || dashboard_path
     else
       @errors = @new_user.errors
       render :new
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if user && user.authenticate(params[:password])
       flash[:notice] = "Welcome #{user.name}!"
       session[:user_id] = user.id
-      redirect_to session.delete(:return_to) || dashboard_path
+      redirect_to cookies.delete(:return_to) || dashboard_path
     else
       @error = true
       render :login_form

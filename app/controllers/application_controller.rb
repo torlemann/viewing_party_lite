@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def require_user
     if !current_user
       flash[:login_alert] = "You must be logged in to do that."
-      session[:return_to] = request.path
+      cookies[:return_to] = { value: request.path, expires: 120.seconds }
       redirect_to login_path
     end
   end
