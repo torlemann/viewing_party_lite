@@ -16,12 +16,23 @@
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <span class="fs-3">Viewing Party!</span>
       </a>
-
-      <ul class="nav nav-pills">
-        <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
-        <li class="nav-item"><%= link_to "Login", login_path, class: current_page?(login_path) ? "nav-link active" : "nav-link" %></li>
-        <li class="nav-item"><%= link_to "Register", register_path, class: current_page?(register_path) ? "nav-link active" : "nav-link" %></li>
-      </ul>
+      <% if @user %>
+        <span class="d-flex align-items-center me-3 text-dark"><%= @user.name %></span>
+      <% end %>
+      <% if !@user %>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", login_path, class: current_page?(login_path) ? "nav-link active" : "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Register", register_path, class: current_page?(register_path) ? "nav-link active" : "nav-link" %></li>
+        </ul>
+      <% else %>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><%= link_to "Home", root_path, class: current_page?(root_path) ? "nav-link active" : "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Dashboard", user_dashboard_path, class: current_page?(user_dashboard_path) ? "nav-link active" : "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Discover", user_discover_path, class: current_page?(user_discover_path) ? "nav-link active" : "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Logout", logout_path, class: "nav-link", method: :post %></li>
+        </ul>
+      <% end %>
     </header>
   </div>
 

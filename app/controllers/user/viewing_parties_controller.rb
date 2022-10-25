@@ -1,16 +1,17 @@
-class ViewingPartiesController < ApplicationController
+class User::ViewingPartiesController < ApplicationController
 
   before_action :set_users
 
   def new
-    @viewing_party = ViewingParty.new(host_id: params[:user_id], movie_id: params[:movie_id])
+    @viewing_party = ViewingParty.new(host_id: @user.id, movie_id: params[:movie_id])
   end
 
   def create   
     @viewing_party = ViewingParty.new(vp_params)
     if @viewing_party.save
-      redirect_to user_path(params[:user_id])
+      redirect_to user_dashboard_path
     else
+      binding.pry
       flash[:alerts] = @viewing_party.errors.full_messages
       render :new
     end
@@ -30,8 +31,8 @@ class ViewingPartiesController < ApplicationController
   end
 
   def set_users
-    @user = User.find(params[:user_id])
-    @other_users = User.all_except(params[:user_id])
+    @user = current_user
+    @other_users = User.all_except(@user.id)
   end
 
 end

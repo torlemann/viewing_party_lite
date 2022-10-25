@@ -2,8 +2,8 @@
 <% if @movie.image_path %>
   <img style="width:300px" src="<%= @movie.image_path %>">
 <% end %>
-<%= button_to "Discover Page", user_discover_path(@user.id), method: :get %>
-<%= button_to "Create Viewing Party for #{@movie.title}", new_user_movie_viewing_party_path(@user.id, @movie.id), method: :get %>
+<%= button_to "Discover Page", user_discover_path, method: :get %>
+<%= button_to "Create Viewing Party for #{@movie.title}", new_user_movie_viewing_party_path(@movie.id), method: :get %>
 <br>
 <div id="movie_info_1">
   <div id="rating">Vote Average: <%= @movie.vote_average.round(1) %></div>

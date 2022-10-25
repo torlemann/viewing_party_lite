@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
 
-  def show
-    @user = User.find(params[:id])
-    binding.pry
-  end
+  before_action :get_user, only: [:show]
 
   def new
     @user = User.new
@@ -12,7 +9,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to user_path(@user.id)
+      session[:user_id] = @user.id
+      redirect_to user_dashboard_path
     else
       @errors = @user.errors
       render :new
@@ -28,11 +26,16 @@ class UsersController < ApplicationController
     user = User.find_by(email: @email)
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to user_path(user)
+      redirect_to user_dashboard_path
     else
       @error = true
       render :login_form
     end
+  end
+
+  def logout
+    session.clear
+    redirect_to root_path
   end
 
   private
