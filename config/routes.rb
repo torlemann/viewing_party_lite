@@ -6,14 +6,12 @@ Rails.application.routes.draw do
   post "/login", to: "users#login"
   post "/logout", to: "users#logout"
 
-  resources :users, only: [:create]
+  get "/discover", to: "movies#discover"
+  get "/dashboard", to: "dashboard#show"
 
-  namespace :user do
-    get "/discover", to: "movies#discover"
-    get "/dashboard", to: "dashboard#show"
-    resources :movies, only: [:index, :show] do
-      resources :viewing_parties, only: [:new, :create]
-    end
+  resources :users, only: [:create]
+  resources :movies, only: [:index, :show] do
+    resources :viewing_parties, only: [:new, :create]
   end
 
 end

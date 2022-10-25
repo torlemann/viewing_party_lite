@@ -1,6 +1,4 @@
-class User::MoviesController < ApplicationController
-
-  before_action :get_user
+class MoviesController < ApplicationController
 
   def discover
   end
