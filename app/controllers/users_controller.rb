@@ -17,10 +17,11 @@ class UsersController < ApplicationController
   end
 
   def login_form
-    @email = nil
+    @email = cookies[:email]
   end
 
   def login
+    check_remember_me
     @email = params[:email]
     user = User.find_by(email: @email)
     if user && user.authenticate(params[:password])
@@ -43,6 +44,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def check_remember_me
+    if params[:remember_me] == "1"
+      cookies[:email] = { value: params[:email], expires: 90.days }
+    elsif cookies[:email] == params[:email] && params[:remember_me] == "0"
+      cookies.delete :email
+    end
   end
 
 end
